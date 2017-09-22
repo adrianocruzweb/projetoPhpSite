@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="utf-8">
+	<title>TV ON</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Canal de MIDIA Tvon" />
+	<!-- css -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet" />
+	<link href="css/default.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:600" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/angular-material.min.css">
+	<link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/slick-theme.css">
+	<style>
+		body{
+			font-family: 'Open Sans', serif;
+		}
+	</style>
+</head>
+<body ng-app="crudSis" ng-controller="noticiaCtrl" class="modal-demo">
+	<div id="wrapper">
+		<header>
+			<nav class="navbar navbar-default logo">
+				<div class="container-fluid">
+					<div class="navbar-header" style="margin-bottom:30px">
+						<a class="navbar-brand text-hide" href="#"><img src="img/logo 2.png" alt=""/></a>		
+					</div>
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			              <span class="sr-only">Toggle navigation</span>		
+			            </button>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse in" aria-expanded="true">
+						<ul class="nav navbar-nav navbar-right">
+							<li>
+								<a href="index.html" class="menunews">
+									<img src="img/tvon_news.png">
+								</a>
+							</li>
+							<li>
+								<a href="institucional.html" class="menuveicular">
+									<img src="img/tvon_veicular.png">
+								</a>
+							</li>
+							<li>
+								<a href="adesivagem.html" class="menuadesivagem">
+									<img src="img/tvon_adesivagem.png">
+								</a>
+							</li>
+							<li>
+								<a href="promocao.html" class="menupromocoes">
+									<img src="img/tvon_promocoes.png">
+								</a>
+							</li>
+							<li>
+								<a href="#" class="menusearch">
+									<img src="img/icon_search.png" alt=""/>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<hr>
+		<section>
+			<div class="container">
+				<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+					<div class="col-lg-12">
+						<a href="#"><img src="img/banner/banner01.jpg" class="img-responsive center-block"></a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-5" >
+						<div style="position: relative;" >
+							<div class="c_slider_destaques" ng-init="getNoticiaDestaque()">
+								<slick ng-if="listaNoticiaDestaque.length>0" settings="slickConfig">
+								    <div ng-repeat="nd in listaNoticiaDestaque" ng-click="open(nd.id,1)"
+								    style="display: inline-block; position: relative;">
+								        <div>
+											<img ng-src="{{nd.img}}" width="450" height="280">
+										</div>
+					
+										<div style="width:350px;position: absolute;bottom:0px;left: 30px;color: white;text-shadow: 0px 0px 5px black;">
+											<p>{{nd.titulo}}</p>
+											<p style="color: #F90;">{{nd.ct_noticia}}</p>
+										</div>
+								    </div>
+								</slick>
+								<span class="glyphicon glyphicon-chevron-left" ng-click="slickConfig.method.slickPrev()"></span>
+								<span class="glyphicon glyphicon-chevron-right" ng-click="slickConfig.method.slickNext()"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-7">
+						<div class="col-lg-6" ng-init="getNoticiaSub()">
+							<div 
+							style="position: relative;" 
+							ng-repeat="c in listaNoticiaSub">
+								<div class="row" ng-click="open(c.id,2)">
+									<div class="imagemdestaque">
+										<img ng-src="{{c.img}}" width="300" height="175">
+									</div>
+									<div class="titulodestaque">
+										<h5 style="color: #F90;">{{c.ct_noticia}}</h5>
+									</div>
+									<div class="titulodestaque">
+										<h4>{{c.titulo}}</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6" style="width:300px;height:400px;overflow: scroll;" ng-init="getNoticiaUm()">
+							<div style="position: relative;" ng-repeat="conUm in listaNoticia">
+								<div class="row" ng-click="open(conUm.id,3)">
+									<div class="titulodestaque">
+										<h5 style="color: #F90;">{{conUm.ct_noticia}}  {{conUm.dt_publicacao}}</h5>
+									</div>
+									<div class="titulodestaque">
+										<h5>{{conUm.titulo}}</h5>
+									</div>
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12" style="height: auto; padding-top: 10px;" ng-init="getNoticiaDois()">
+						<div class="col-lg-4" ng-repeat="dois in listaNoticiaDois | limitTo:3">
+							<div style="position: relative;">
+								<div class="row" ng-click="open(dois.id,4)">
+									<div class="imagemdestaque">
+										<img ng-src="{{dois.img}}" width="300" height="175">
+									</div>
+									<div class="titulodestaque">
+										<h5 style="color: #F90;">{{dois.ct_noticia}}</h5>
+									</div>
+									<div class="titulodestaque">
+										<h4>{{dois.titulo}}</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+					<div class="col-lg-12">
+						<a href="#"><img src="img/banner/banner02.jpg" class="img-responsive center-block"></a>
+					</div>
+				</div>
+				<div class="row" style="padding-top: 20px;" ng-init="getNoticiaTres()">
+					<div class="col-lg-12" style="height: auto; padding-top: 10px;">
+						<div class="col-lg-4" ng-repeat="tres in listaNoticiaTres | limitTo:3">
+							<div style="position: relative;">
+								<div class="row" ng-click="open(tres.id,5)">
+									<div class="imagemdestaque">
+										<img ng-src="{{tres.img}}" width="300" height="175">
+									</div>
+									<div class="titulodestaque">
+										<h5 style="color: #F90;">{{tres.ct_noticia}}</h5>
+									</div>
+									<div class="titulodestaque">
+										<h4>{{tres.titulo}}</h4>
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="row" style="padding-top: 10px; padding-bottom: 10px;"><!--banner-->
+					<div class="col-lg-12">
+						<img src="img/banner_bottom.png" class="img-responsive center-block">
+					</div>
+				</div><!--banner-->
+			</div><!--containner-->
+		</div>
+	</section>
+	<div style="background-color: #f8f8f4; height: 134px; width: 100%;">
+		<div class="col-lg-12 boxrodape"></div>
+	</div>
+	<section style="background-color: #313332; width: 100%; height: 400px;">
+		<div class="container" style="background-color: #313332; width: 100%; height: 30px; padding-top: 50px; padding-bottom: 50px;">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-6">
+						<div class="col-lg-12" style="padding-bottom: 10px;">
+							<img src="img/faleconosco.png">
+						</div>
+						<form>
+							<div class="col-lg-4 formulario">
+								<input type="text" id="fname" name="firstname" placeholder="NOME:"><br/><br/>
+								<input type="text" id="lname" name="lastname" placeholder="EMAIL:"><br/><br/>
+								<input type="text" id="lname" name="lastname" placeholder="TELEFONE:">
+							</div>
+							<div class="col-lg-8" style="padding-left:45px">
+								<textarea id="fname" name="firstname" placeholder="MENSAGEM:" style="height: 190px; width: 300px;"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="col-lg-4 boxcontato">
+						<div class="row">
+							<div class="col-lg-1" style="padding-bottom: 15px;"><img src="img/icon_mail.png"></div>
+							<div class="col-lg-11" style="padding-bottom: 15px;">tvonmidia@tvonmidia.com.br</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-1" style="padding-bottom: 15px;"><img src="img/icon_phone.png"></div>
+							<div class="col-lg-11" style="padding-bottom: 15px;">(67) 3043-0068 | (67) 3043-0069</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-1"><img src="img/icon_map.png"></div>
+							<div class="col-lg-11">Rua da paz, 638 - fundos.<br/>Centro. CEP 79020-250</div>
+						</div>
+						<div class="row">
+							<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftvonmidiadigital%2F&tabs&width=340&height=130&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId" width="340" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+						</div>
+					</div>
+					<div class="col-lg-1"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<script type="text/ng-template" id="myModalContent.html">	
+    <div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+    		<span aria-hidden="true">&times;</span>
+    	</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+		<h2 style="text-align:center; margin:10px 0">{{lista.titulo}}</h2>
+		<h4 style="text-align:center; margin-bottom:25px">{{lista.subtitulo}}</h4>
+		<img ng-src="{{lista.img}}" height="250" width="416"
+		style="display: table; margin: 0 auto;">
+		<p ng-bind-html="lista.texto" style="margin-top:25px"></p>
+    </div>    
+</script>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>	
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.min.js"></script>
+<script src="js/angular-resource.min.js"></script>
+<script src="js/angular-touch.min.js"></script>
+<script src="js/angular-animate.min.js"></script>
+<script src="js/angular-aria.min.js"></script>
+<script src="js/angular-material.min.js"></script>
+<script src="js/angular-sanitize.js"></script>
+<script src="js/slick.js"></script>
+<script src="js/angular-slick.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers/TelaNoticiaController.js"></script>
+<script src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

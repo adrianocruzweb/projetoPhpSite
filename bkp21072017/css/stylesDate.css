@@ -1,0 +1,24 @@
+@import url(http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
+@import url(https://cdn.rawgit.com/dalelotts/angular-bootstrap-datetimepicker/0.3.14/src/css/datetimepicker.css);
+
+.hero-unit {
+    text-align: center;
+}
+
+.bs-docs-social-buttons {
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+}
+.bs-docs-social-buttons li {
+    display: inline-block;
+    padding: 5px 8px;
+    line-height: 1;
+}
+
+.icon-github {
+    background: no-repeat url('../img/github-16px.png');
+    width: 16px;
+    height: 16px;
+}

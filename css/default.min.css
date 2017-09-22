@@ -1,0 +1,43 @@
+
+.controle{position:absolute;width:65px;left:350px;top:270px}
+.c_slider_destaques{}
+.c_slider_destaques iframe{margin:0;padding:0;border:none;overflow:hidden}
+.c_slider_destaques .slider{position:relative;width:450px;height:315px;overflow:hidden}
+.c_slider_destaques .slider .controle{position:absolute;width:65px;left:370px;top:270px}
+.c_slider_destaques .slider .slider_close{position:absolute;bottom:0;right:0;z-index:9999;*z-index:9999;display:none}
+.c_slider_destaques .slider .slider_close a{background-color:#F90;color:#fff;font-weight:bold;display:block;padding:5px;margin:15px 10px}
+.c_slider_destaques .slider .controle img{cursor:pointer}
+.c_slider_destaques .slider .controle  img:first-child{margin-right:5px}
+.c_slider_destaques .slider .destaque{position:absolute;width:450px;height:315px;background:#EEE;left:340px}
+.c_slider_destaques .slider .destaque:first-child{left:0px}
+.c_slider_destaques .slider .destaque .foto{}
+.c_slider_destaques .slider .destaque .titulo{
+	display:block;
+	padding:10px 10px 14px;
+	color:#333;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:16px;
+	line-height:20px;
+	font-weight:bold;
+	letter-spacing:-1px;
+	width:370px
+}
+.c_slider_imagens_do_dia .slider{height:298px!important}
+.c_slider_imagens_do_dia .c_slider_destaques .slider .destaque .titulo{padding:14px 10px 14px!important}
+.c_slider_imagens_do_dia .c_slider_destaques .slider .destaque{height:294px!important}
+.c_slider_imagens_do_dia .c_slider_destaques .slider .controle{top:258px!important}
+.c_titulo_estatico h3{font-size:20px;font-weight:bold;line-height:26px;border-top:3px solid #F90;margin-bottom:10px;padding-top:5px;color:#F90;letter-spacing:-1px}
+.c_titulo_estatico h3 a{color:#F90}
+
+
+.css-sprite{background:url(../img/elementos.png) no-repeat top left}
+.inline_block{border:none;vertical-align:top;display:inline-block;zoom:1;*display:inline;float:none}
+.css-sprite.sprite-available_appstore2{background-position:0 0;width:130px;height:45px}
+.css-sprite.sprite-available_googleplay2{background-position:0 -95px;width:131px;height:45px}
+.css-sprite.sprite-bt-dir2{background-position:0 -190px;width:28px;height:28px}
+.css-sprite.sprite-bt-dir3{background-position:0 -268px;width:28px;height:28px}
+.css-sprite.sprite-bt-esq2{background-position:0 -346px;width:28px;height:28px}
+.css-sprite.sprite-bt-esq3{background-position:0 -424px;width:28px;height:28px}
+.css-sprite.sprite-bt-search2{background-position:0 -502px;width:70px;height:28px}
+.css-sprite.sprite-btn_ticker_next{background-position:0 -580px;width:10px;height:15px}
+.css-sprite.sprite-btn_ticker_prev{background-position:0 -645px;width:10px;height:15px}
