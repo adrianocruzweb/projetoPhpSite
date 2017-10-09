@@ -1,4 +1,6 @@
-crudSis.controller('noticiaCtrl', function($scope,$http,$uibModal,$log,$document){
+crudSis.controller('noticiaCtrl', function($location,$scope,$http,$uibModal,$log,$document){
+
+	$scope.activetab = $location.path();
 
 	$scope.paraLoop = true;
 
@@ -25,6 +27,41 @@ crudSis.controller('noticiaCtrl', function($scope,$http,$uibModal,$log,$document
 	        }
 	    }
 	};	
+
+ 	$scope.list = [];
+
+	$scope.submit = function() {
+		if ($scope.msg) {
+			dadosFormContato = {
+				'funcao':'enviaContato',
+				'nome':$scope.nome,
+				'email':$scope.email,
+				'telefone':$scope.telefone,
+				'mensagem':$scope.msg
+			};
+
+			var res = $http({
+				method	: 'POST',
+				url 	: 'php/contato.php',
+				data 	: dadosFormContato,
+				headers : {"Content-Type": "application/json; charset=utf-8"}
+			});
+
+			res.then(function(data, status, headers, config) {
+				console.log(data);
+				if(data.data.resposta){
+					
+				
+				}else{
+					console.log("Erro ao enviar contato");
+				}
+			});
+
+			res.catch(function(data, status) {
+				console.error('Erro Envio Contato', response.status, response.data);
+			});			
+		}
+	};
 
 	/*$scope.getNoticia = function(){
 

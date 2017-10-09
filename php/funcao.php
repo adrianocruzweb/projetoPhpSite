@@ -483,3 +483,22 @@ function deletaFoto($id,$dbh){
 		return unlink("../nimg/".$obj[0]->img);
 	}
 }
+
+function enviaContato($dados){
+	$retorno = false;
+
+	// the message
+	$msg = "Nome: ".$dados->nome." \n";
+	$msg .= "Email: ".$dados->email." \n";
+	$msg .= "Telefone: ".$dados->telefone." \n";
+	$msg .= "MENSAGEM: ".$dados->mensagem." \n";
+
+	// use wordwrap() if lines are longer than 70 characters
+	$msg = wordwrap($msg,200);
+
+	// send email
+	$retorno = mail("adrianocruzweb@hotmail.com","CONTATO SITE TVON",$msg);
+
+
+	return $retorno;
+}
