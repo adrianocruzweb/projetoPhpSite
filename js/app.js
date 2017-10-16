@@ -7,29 +7,49 @@ var crudSis = angular.module('crudSis', [
 ]);
 
 crudSis.config(function($routeProvider, $locationProvider){
-   //$locationProvider.html5Mode(true);
-   console.log('ok');
+   $locationProvider.hashPrefix('');
    $routeProvider
 
    .when('/', {
-      templateUrl : "templates/noticia.html",
-      controller  : "noticiaCtrl",
+      templateUrl : 'templates/noticia.html',
+      controller  : 'noticiaCtrl',
    })
 
    .when('/veicular', {
-      templateUrl : "templates/institucional.html",
-      controller  : "veicularCtrl",
+      templateUrl : 'templates/institucional.html',
+      controller  : 'veicularCtrl',
    })
 
    .when('/adesivagem', {
-      templateUrl : "templates/adesivagem.html",
-      controller  : "adesivagemCtrl",
+      templateUrl : 'templates/adesivagem.html',
+      controller  : 'adesivagemCtrl',
    })
 
    .when('/promocao', {
-      templateUrl : "templates/promocao.html",
-      controller  : "promocaoCtrl",
+      templateUrl : 'templates/promocao.html',
+      controller  : 'promocaoCtrl',
    })
+
+   .when('/atvon', {
+      templateUrl : 'templates/atvon.html',
+      controller  : 'adesivagemCtrl',
+   })
+
+   .when('/intinerarios', {
+      templateUrl : 'templates/itinerarios.html',
+      controller  : 'adesivagemCtrl',
+   })
+
+   .when('/anunciantes', {
+      templateUrl : 'templates/anunciantes.html',
+      controller  : 'adesivagemCtrl',
+   })
+
+   .when('/diferenciais', {
+      templateUrl : 'templates/diferenciais.html',
+      controller  : 'adesivagemCtrl',
+   })
+
    // caso não seja nenhum desses, redirecione para a rota '/'
    .otherwise ({ redirectTo: '/' });
 });

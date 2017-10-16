@@ -62,7 +62,7 @@ header .navbar-nav > li {
 .navbar-brand {
 	padding: 0px;
 	margin-top: 15px;
-    padding: 0 0 0 94px;
+    padding: 0 0 0 206px;
 }
 
 .navbar-brand>img {
@@ -349,6 +349,7 @@ form {
 
 .boxcontato {
 	color: #fff;
+	margin-top:20px;
 }
 
 .titulonew {
@@ -456,4 +457,127 @@ ul.navbar-right li a.menupromocoes:hover{
 
 .titulodestaque {
 	padding-right: 26px;
+}
+
+body{
+	font-family: 'Open Sans', serif;
+}
+
+div.img-container-carr {
+	width: 550px;
+	height: 280px;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+
+img.cropped {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.titulo-carr{
+	width:350px;
+	position: absolute;
+	bottom:0px;
+	left: 50px;
+	color: white;
+	text-shadow: 0px 2px 5px black, 0px 0px 5px black;
+}
+
+.cat-noticia{
+	color: #F90;
+}
+
+.div-not-dest{
+	display: inline-block;
+	position: relative;
+}
+
+.botao-carr-dest{
+	width: 550px;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+
+div.img-container-sub {
+	max-width: 300px; 
+	max-height: 175px;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+
+.img-center {margin:0 auto;}
+
+.bordinha{
+    border-bottom: thick solid #ccc;
+}
+
+.cat-um-scroll{
+	width:300px;
+	height:400px;
+	overflow: scroll;
+}
+
+.noticia-dois{
+	height: auto;
+	padding-top: 10px;
+}
+
+.publicidade-dois{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.link-click{
+	cursor: pointer;
+}
+
+.div-box-rodape{
+	background-color: #f8f8f4;
+	height: 134px;
+	width: 100%;
+}
+
+@media screen {
+  .section-container-footer{
+		background-color: #313332;
+		width: 100%;
+		min-height: 490px;
+	}
+}
+
+@media (max-width: 628px) {
+  .section-container-footer{
+		background-color: #313332;
+		width: 100%;
+		min-height: 860px;
+	}
+}
+
+@media screen {
+  .div-face{
+		margin-top:70px;
+	}
+}
+
+@media (max-width: 628px) {
+  .div-face{
+		margin-top:10px;
+	}
+}
+
+.div-container{
+	background-color: #313332;
+	width: 100%;
+	padding-top: 50px;
 }

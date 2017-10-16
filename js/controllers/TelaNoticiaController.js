@@ -1,5 +1,6 @@
 crudSis.controller('noticiaCtrl', function($location,$scope,$http,$uibModal,$log,$document){
 
+
 	$scope.activetab = $location.path();
 
 	$scope.paraLoop = true;

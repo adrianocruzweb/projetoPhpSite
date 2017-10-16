@@ -3,4 +3,3 @@ crudSis.controller('promocaoCtrl', function($location,$scope,$http,$uibModal,$lo
 	$scope.activetab = $location.path();
 	
 });
-
