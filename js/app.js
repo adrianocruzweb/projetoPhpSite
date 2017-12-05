@@ -3,7 +3,8 @@ var crudSis = angular.module('crudSis', [
 	'ngResource',
 	'ui.bootstrap',
 	'slickCarousel',
-	'ngSanitize'
+	'ngSanitize',
+   'updateMeta'
 ]);
 
 
