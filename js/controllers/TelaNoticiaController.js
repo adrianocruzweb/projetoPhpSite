@@ -37,7 +37,6 @@ crudSis.controller('noticiaCtrl', function($location,$scope,$http,$uibModal,$log
 				'funcao':'enviaContato',
 				'nome':$scope.nome,
 				'email':$scope.email,
-				'telefone':$scope.telefone,
 				'mensagem':$scope.msg
 			};
 
@@ -49,12 +48,13 @@ crudSis.controller('noticiaCtrl', function($location,$scope,$http,$uibModal,$log
 			});
 
 			res.then(function(data, status, headers, config) {
-				console.log(data);
-				if(data.data.resposta){
-					
-				
+				if(data.data){
+					console.log("Enviado com sucesso");
+					alert("Enviado Com Sucesso.");
+					$scope.limpaFormContato();
 				}else{
 					console.log("Erro ao enviar contato");
+					$scope.limpaFormContato();
 				}
 			});
 
@@ -63,6 +63,12 @@ crudSis.controller('noticiaCtrl', function($location,$scope,$http,$uibModal,$log
 			});			
 		}
 	};
+
+	$scope.limpaFormContato = function(){
+		$scope.nome 	= "";
+		$scope.email 	= "";
+		$scope.msg 		= "";
+	}
 
 	/*$scope.getNoticia = function(){
 
@@ -259,111 +265,6 @@ crudSis.controller('noticiaCtrl', function($location,$scope,$http,$uibModal,$log
 			console.error('Erro Get Noticia', response.status, response.data);
 		});
 	}
-	/*$scope.ct = function(ct){
-		var cat = "";
-		switch(ct) {
-		    case "1":
-		        cat = "Mundo";
-		        break;
-		    case "2":
-		        cat = "Geral";
-		        break;
-		    case "3":
-		        cat = "Famosos";
-		        break;
-		    case "4":
-		        cat = "Esporte";
-		        break;
-        	case "5":
-		        cat = "Policial";
-		        break;
-	        case "6":
-		        cat = "Política";
-		        break;
-	        case "7":
-		        cat = "Saúde";
-		        break;
-	        case "8":
-		        cat = "Tecnologia";
-		        break;
-	        case "9":
-		        cat = "Informe Publicitário";
-		        break;
-		}
-
-		return cat;
-	}*/
-
-	/*$scope.organizaLista = function(){
-
-		if($scope.listaNoticia.length<1){
-			return;
-		}
-		angular.forEach($scope.listaNoticia, function(value,key){
-			var bits 	= value.dt_ativacao.split(/\D/);
-			var date 	= new Date(bits[0], --bits[1], bits[2], bits[3], bits[4]);
-			var bAgora 	= value.agora.split(/\D/);
-			var dateAgora 	= new Date(bAgora[0], --bAgora[1], bAgora[2], bAgora[3], bAgora[4]);
-			var dtAtiv 	= parseInt(date.getTime());
-			var agora 	= parseInt(dateAgora.getTime());
-			if(agora >= dtAtiv){
-				$scope.getCtListagem(value.ct_listagem,value);
-			} 
-		});
-	}*/
-
-	/*$scope.orgList = function(lista){
-
-		if(lista.length<1){
-			alert('aqui');
-			return;
-		}
-
-		var list = [];
-
-		angular.forEach(lista, function(value,key){
-			list.push(
-				{
-					'id': value.id_noticia,
-					'subtitulo':value.subtitulo,
-					'texto':value.texto,
-					'titulo': $scope.resolveTitulo(value.titulo),
-					'img': "nimg/"+value.img,
-					'ct_noticia':$scope.ct(value.ct_noticia),
-					'ct_listagem':value.ctListagem,
-					'dt_ativacao':value.dt_ativacao,
-					'dt_publicacao':$scope.limpaData(value.dt_publicacao)
-				}
-			);
-		});
-
-
-		return list;
-	}*/
-
-	/*$scope.getCtListagem = function(ctList,obj){
-		if(ctList.length<1){
-			return false;
-		}
-
-		angular.forEach(ctList, function(value,key){
-			if(value.ct_list == 1){
-				$scope.listaNoticiaDestaque.push($scope.montaJson(obj));
-			}else if(value.ct_list == 2){
-				if($scope.listaNoticiaSub.length == 0){
-					$scope.listaNoticiaSub = [$scope.montaJson(obj)];
-				}
-			}else if(value.ct_list == 3){
-				$scope.listaNoticiaUm.push($scope.montaJson(obj));
-			}else if(value.ct_list == 4){
-				$scope.listaNoticiaDois.push($scope.montaJson(obj));
-			}else if(value.ct_list == 5){
-				$scope.listaNoticiaTres.push($scope.montaJson(obj));
-			}else{
-				return false;
-			}
-		});
-	}*/
 	
 	$scope.montaJson = function(obj){
 		if(!obj){
@@ -377,8 +278,11 @@ crudSis.controller('noticiaCtrl', function($location,$scope,$http,$uibModal,$log
 			'titulo': obj.titulo,
 			'img': obj.img,
 			'ct_noticia':obj.ct_noticia,
-			'dt_publicacao':(obj.dt_publicacao)
+			'dt_publicacao':(obj.dt_publicacao),
+			'link_noticia': "http://"+$location.url+"#/veja/"+obj.link_noticia
 		};
+
+		console.log(objJson.link_noticia);
 
 		return objJson;
 	}
@@ -419,7 +323,23 @@ crudSis.controller('noticiaCtrl', function($location,$scope,$http,$uibModal,$log
 		return nText;
 	}*/
 
-	$scope.open = function (id,tp,parentSelector) {
+	$scope.openUrl = function(url){
+		if($location.host() != 'localhost'){
+			window.open("http://www.tvonmidia.com.br/#/veja/"+url);
+		}
+		window.open("http://localhost:81/tvon/#/veja/"+url);
+		return true;
+	}
+
+	$scope.open = function (obj,tp,parentSelector) {
+
+		if(obj.link_noticia){
+			$scope.openUrl(obj.link_noticia);
+			return true;			
+		}
+
+		id = obj.id;	
+
 		if(!id){
 			return false;
 		}

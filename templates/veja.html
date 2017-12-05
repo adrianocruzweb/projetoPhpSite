@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+
+	</div>
+	<div class="row">
+		<div class="col-lg-1"></div>
+		<div class="col-lg-10">
+			<h2 style="text-align:center; margin:10px 0">{{noticia.titulo}}</h2>
+			<h4 style="text-align:center; margin-bottom:25px">{{noticia.subtitulo}}</h4>
+			<img ng-src="nimg/{{noticia.img}}" height="250" width="416"
+			style="max-width:100%;height:auto;display:table;margin: 0 auto;">
+			<p id="texto-modal" ng-bind-html="noticia.texto" style="padding-top:25px;text-align: justify;margin: 0 auto;"></p>
+		</div>
+		<div class="col-lg-1"></div>
+	</div>
+	<div class="row publicidade-dois">
+		<div class="col-lg-12">
+			
+		</div>
+	</div>
+</div><!--containner-->

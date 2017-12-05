@@ -6,6 +6,7 @@ var crudSis = angular.module('crudSis', [
 	'ngSanitize'
 ]);
 
+
 crudSis.config(function($routeProvider, $locationProvider){
    $locationProvider.hashPrefix('');
    $routeProvider
@@ -13,6 +14,11 @@ crudSis.config(function($routeProvider, $locationProvider){
    .when('/', {
       templateUrl : 'templates/noticia.html',
       controller  : 'noticiaCtrl',
+   })
+
+   .when('/veja/:param', {
+      templateUrl : 'templates/veja.html',
+      controller  : 'vejaCtrl',
    })
 
    .when('/veicular', {
@@ -35,7 +41,7 @@ crudSis.config(function($routeProvider, $locationProvider){
       controller  : 'adesivagemCtrl',
    })
 
-   .when('/intinerarios', {
+   .when('/itinerarios', {
       templateUrl : 'templates/itinerarios.html',
       controller  : 'adesivagemCtrl',
    })
@@ -52,6 +58,8 @@ crudSis.config(function($routeProvider, $locationProvider){
 
    // caso não seja nenhum desses, redirecione para a rota '/'
    .otherwise ({ redirectTo: '/' });
+
+   //$locationProvider.html5Mode(true);
 });
 
 
@@ -60,7 +68,8 @@ var crudSisAdm = angular.module('crudSisAdm', [
 	'ngResource',
 	'ui.bootstrap',
 	'textAngular',
-	'ngFileUpload'
+	'ngFileUpload',
+   'ui.bootstrap.datetimepicker'
 ]);
 
 var crudSisPromo = angular.module('crudSisPromo', [

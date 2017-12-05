@@ -8,13 +8,15 @@
 		<meta name="author" content="">
 		<link rel="icon" href="img/favicon/favicon.ico">
 		<title>Administrativo TVON</title>
-		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link href="../css/bootstrap.min.css" rel="stylesheet"
 		<link href="../css/signin.css" rel="stylesheet">		
 		<link rel="stylesheet" href="../css/font-awesome.min.css">
 		<link rel="stylesheet" href="../css/textAngular.css" type="text/css">
 		<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 		<script src="../js/ie-emulation-modes-warning.js"></script>
+		<link rel="stylesheet" href="../node_modules/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+		<script src="../node_modules/angular-locale-pt-br/angular-locale_pt-br.js"></script>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -59,14 +61,14 @@
 						<div class="panel-body">							
       						<div class="form-group">
 								<label for="titleNews">Data Ativação Notícia</label>
-								<input 
+								<input
 									type="datetime-local"
-									id="exampleInput"
-									name="input"
+									min="2017-01-01T08:30"
+									max="2030-06-30T16:30"
+									placeholder="dd/MM/yyyy - HH:mm:ss"
 									ng-model="dtAtivacao"
-									placeholder="yyyy-MM-ddTHH:mm:ss"
-									min="2017-01-01T00:00:00"
-									max="2020-12-31T00:00:00" required/>
+									required>
+								<input type="hidden" id="timezone" name="timezone" value="-04:00">
 							</div>
 							<div class="form-group">
 								<label for="titleNews">Título Notícia</label>
@@ -91,7 +93,7 @@
 								<p class="help-block" ng-click="getNoticia()">{{msgImg}}</p>
 							</div>
 							<p><b ng-click="getCK()">Categoria de Notícia</b></p>
-							<div class="checkbox" ng-repeat="ctn in listaCategoriasNoticia">						
+							<div class="checkbox" ng-repeat="ctn in listaCategoriasNoticia">			
 								<label>
 									<input 
 										type="radio"
@@ -127,7 +129,9 @@
 									<tr>
 										<th>#</th>
 										<th>TÍTULO</th>
-										<th>DATA</th>
+										<th>DATA PUBLICAÇÃO</th>
+										<th>DATA ATIVAÇÃO</th>
+										<th>LINK</th>
 										<th>AÇÃO</th>
 									</tr>
 								</thead>
@@ -136,6 +140,8 @@
 										<th scope="row">{{obj.id}}</th>
 										<td>{{obj.titulo}}</td>
 										<td>{{obj.dt_publicacao}}</td>
+										<td>{{obj.dtAtivacao}}</td>
+										<td><a ng-href="{{obj.link_noticia.link}}">{{obj.link_noticia.status}}</td>
 										<td>
 											<button type="botton" class="btn btn-default" ng-click="editarNoticia(obj.id)">EDITAR</button>
 											<button type="botton" class="btn btn-default" ng-click="excluirNoticia(obj.id)">EXCLUIR</button>
@@ -220,6 +226,7 @@
 		</div>
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../node_modules/moment/moment.js"></script>
 		<script src="../js/angular.min.js"></script>
 		<script src="../js/angular-route.min.js"></script>
 		<script src="../js/angular-resource.min.js"></script>
@@ -232,5 +239,7 @@
 		<script src='../js/textAngular-rangy.min.js'></script>
 		<script src='../js/textAngular-sanitize.min.js'></script>    
 		<script src='../js/textAngular.min.js'></script>
+		<script type="text/javascript" src="../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+		<script type="text/javascript" src="../node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
 	</body>
 </html>

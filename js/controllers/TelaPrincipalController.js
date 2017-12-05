@@ -9,6 +9,7 @@ crudSisAdm.controller('telaPrincipal', function($scope,$http,Upload){
 	$scope.ctListagem 			= [];
 	$scope.ctNoticia 			= null;
 	$scope.categoriaNoticia 	= [];
+
 	
 
 	$scope.limpa = function(){
@@ -65,6 +66,11 @@ crudSisAdm.controller('telaPrincipal', function($scope,$http,Upload){
 		{ct:'4',nome:'Central 02',ck:''},
 		{ct:'5',nome:'Central 03',ck:''}
 	];
+
+	$scope.linkNoticia = {
+		status:"sem link",
+		link:""
+	};
 
 	$scope.categoriaNoticia = new Array($scope.listaCategoriasNoticia.length);
 	$scope.categoriaList = new Array($scope.categoriaListagem.length);
@@ -192,7 +198,7 @@ crudSisAdm.controller('telaPrincipal', function($scope,$http,Upload){
 			'texto' 	:$scope.texto,
 			'ctNoticia' :$scope.ctNoticia,
 			'ctListagem':$scope.ctListagem,
-			'dtAtivacao':$scope.dtAtivacao.toString(),
+			'dtAtivacao':$scope.dtAtivacao,
 			'subtitulo'	:$scope.subtitulo
 		};
 
@@ -218,6 +224,7 @@ crudSisAdm.controller('telaPrincipal', function($scope,$http,Upload){
 	}
 
 	$scope.getNoticia = function(id){
+
 		var dados = {
 			'funcao':'getNoticia',
 			'id_noticia':id
@@ -234,6 +241,18 @@ crudSisAdm.controller('telaPrincipal', function($scope,$http,Upload){
 			$scope.listaNoticia = [];
 			if(data.data.resposta){
 				angular.forEach(data.data.dados, function(value,key){
+					if(value.link_noticia){
+						$scope.linkNoticia = {
+							status:"Clique aqui",
+							link:"http://www.tvonmidia.com.br/#/veja/"+value.link_noticia
+						};
+					}else{
+						$scope.linkNoticia = {
+							status:"sem link",
+							link:"#"
+						};
+					}
+
 					$scope.listaNoticia.push(
 						{
 							'id': value.id_noticia,
@@ -241,10 +260,11 @@ crudSisAdm.controller('telaPrincipal', function($scope,$http,Upload){
 							'titulo': value.titulo,
 							'subtitulo': value.subtitulo,
 							'img': value.img,
-							'dt_publicacao': value.dt_publicacao,
+							'dt_publicacao':value.dt_publicacao,
 							'dtAtivacao':value.dt_ativacao,
 							'ct_noticia':value.ct_noticia,
-							'ct_listagem':value.ctListagem
+							'ct_listagem':value.ctListagem,
+							'link_noticia': $scope.linkNoticia
 						}
 					);
 				});
@@ -270,6 +290,8 @@ crudSisAdm.controller('telaPrincipal', function($scope,$http,Upload){
 				$scope.idNoticia 	= id;
 				$scope.subtitulo 	= value.subtitulo;
 
+				$scope.dtAtivacao = '';
+				console.log(new Date(value.dtAtivacao));
 				$scope.dtAtivacao 	= new Date(value.dtAtivacao);
 				
 				if(value.ct_listagem){

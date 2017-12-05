@@ -1,0 +1,18 @@
+{
+  "name": "adriano",
+  "version": "1.0.0",
+  "description": "teste",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular-bootstrap-datetimepicker": "^1.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adrianocruzweb/projetoPhpSite.git"
+  }
+}

@@ -14,18 +14,21 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12" style="padding-bottom: 10px;">
-							<form>
+							<form ng-submit="submit()" ng-controller="noticiaCtrl">
 								<div class="form-group">
 									<label for="intputNome">Nome</label>
-									<input type="text" class="form-control" id="intputNome" placeholder="Nome">
+									<input type="text" class="form-control" id="intputNome" ng-model="nome"
+									placeholder="Nome">
 								</div>  
 								<div class="form-group">
 									<label for="inputEmail">E-mail</label>
-									<input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="E-mail">
+									<input type="email" class="form-control" id="inputEmail" ng-model="email"
+									aria-describedby="emailHelp" placeholder="E-mail">
 								</div>
 								<div class="form-group">
 									<label for="inputTextArea">Mensagem</label>
-									<textarea class="form-control" id="inputTextArea" rows="3">Mensagem</textarea>
+									<textarea class="form-control" id="inputTextArea" ng-model="msg"
+									rows="3">Mensagem</textarea>
 								</div>  
 								<button type="submit" class="btn btn-warning">Salvar</button>
 							</form>

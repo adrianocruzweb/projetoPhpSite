@@ -27,7 +27,7 @@
 			}else{
 
 				$idNoticia = insereNoticia($resposta,$dbh);
-
+				
 				if(isset($idNoticia) && !empty($idNoticia)){
 					if(insereCTListagem($resposta,$idNoticia,$dbh)){
 						echo json_encode(array('resposta'=>true,'id_noticia'=>$idNoticia));
@@ -68,6 +68,10 @@
 
 		if($resposta->funcao == 'getNoticiaPorId'){
 			echo json_encode(getNoticiaPorId($resposta->id, $dbh));
+		}
+
+		if($resposta->funcao == 'getNoticiaLink'){
+			echo json_encode(getNoticiaLink($resposta->link, $dbh));
 		}		
 	}	
 

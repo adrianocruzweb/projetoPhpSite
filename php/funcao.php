@@ -1,6 +1,11 @@
 <?php
+require_once("phpmailer/class.phpmailer.php");
 
 function insereNoticia($obj,$dbh){
+
+	$link = (string)geraLink($dbh);
+
+	$obj->dtAtivacao = date("c", strtotime($obj->dtAtivacao));
 
 	$sqlInsereNoticia = "insert into noticia (
 		titulo,
@@ -8,14 +13,16 @@ function insereNoticia($obj,$dbh){
 		subtitulo,
 		img,
 		dt_ativacao,
-		ct_noticia
+		ct_noticia,
+		link_noticia
 	) values (
 		:titulo,
 		:texto,
 		:subtitulo,
 		:img,
 		:dt_ativacao,
-		:ct_noticia
+		:ct_noticia,
+		:link_noticia
 	)";
 
 	$stmt = $dbh->prepare($sqlInsereNoticia);
@@ -27,6 +34,7 @@ function insereNoticia($obj,$dbh){
 	$stmt->bindParam(':dt_ativacao',	$obj->dtAtivacao);
 	$stmt->bindParam(':img',			$obj->nomeImgUP);
 	$stmt->bindParam(':ct_noticia',		$obj->ctNoticia);
+	$stmt->bindParam(':link_noticia',	$link);
 
 	if($stmt->execute()){
 		return $dbh->lastInsertId();
@@ -35,7 +43,44 @@ function insereNoticia($obj,$dbh){
 	}
 }
 
+function getlinkNoticia($link,$dbh){
+	$sqlGetLink = "select * from noticia where link_noticia = :link";
+
+	$stmt = $dbh->prepare($sqlGetLink);
+
+	$stmt->bindParam(':link',$link);
+
+	$stmt->execute();
+	$res 		= $stmt->fetchAll(PDO::FETCH_OBJ);
+	$conta 		= count($res);
+
+	if($conta == 0){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function geraLink($dbh){
+
+	$linkNoticia = "";
+	$cont = 0;
+	do{
+		$cont++;
+		$linkNoticia = rand(100000000,999999999);	
+
+		if(getLinkNoticia($linkNoticia,$dbh)){
+			break;
+			return $linkNoticia;
+		}
+	}while($cont<=10);
+
+	return $linkNoticia;
+}	
+
 function updateNoticia($obj,$dbh){
+
+	$obj->dtAtivacao = date("c", strtotime($obj->dtAtivacao));
 
 	$sqlInsereNoticia = "update noticia set 
 		titulo=:titulo,
@@ -133,6 +178,8 @@ function getNoticia($dbh){
 
 	$stmt = $dbh->prepare($sqlGetNoticia);
 
+
+
 	if($stmt->execute()){
 		$res 		= $stmt->fetchAll(PDO::FETCH_OBJ);
 		$conta 		= count($res);
@@ -156,6 +203,22 @@ function getNoticia($dbh){
 	}
 }
 
+function getNoticiaLink($link,$dbh){
+
+	$sqlGetNoticiaLink = "select * from noticia where link_noticia = :link";
+
+	$stmt = $dbh->prepare($sqlGetNoticiaLink);
+
+	$stmt->bindParam(':link',$link);
+
+	if($stmt->execute()){
+		$res 		= $stmt->fetchAll(PDO::FETCH_OBJ);
+		return $res[0];
+	}else{
+		return array('resposta'=>false);
+	}
+}
+
 function getNoticiaDestaque($dbh){
 
 	$sqlGetNotDest = "SELECT
@@ -164,8 +227,10 @@ function getNoticiaDestaque($dbh){
 							n.subtitulo,
 							n.texto,
 							n.dt_publicacao,
+							n.dt_ativacao,
 							n.img,
-							n.ct_noticia
+							n.ct_noticia,
+							n.link_noticia
 						FROM
 							noticia n
 						JOIN
@@ -201,8 +266,10 @@ function getNoticiaSub($dbh){
 							n.subtitulo,
 							n.texto,
 							n.dt_publicacao,
+							n.dt_ativacao,
 							n.img,
-							n.ct_noticia
+							n.ct_noticia,
+							n.link_noticia
 						FROM
 							noticia n
 						JOIN
@@ -239,8 +306,10 @@ function getNoticiaUm($dbh){
 							n.subtitulo,
 							n.texto,
 							n.dt_publicacao,
+							n.dt_ativacao,
 							n.img,
-							n.ct_noticia
+							n.ct_noticia,
+							n.link_noticia
 					FROM
 						noticia n
 					JOIN
@@ -276,8 +345,10 @@ function getNoticiaDois($dbh){
 							n.subtitulo,
 							n.texto,
 							n.dt_publicacao,
+							n.dt_ativacao,
 							n.img,
-							n.ct_noticia
+							n.ct_noticia,
+							n.link_noticia
 						FROM
 							noticia n
 						JOIN
@@ -314,8 +385,10 @@ function getNoticiaTres($dbh){
 							n.subtitulo,
 							n.texto,
 							n.dt_publicacao,
+							n.dt_ativacao,
 							n.img,
-							n.ct_noticia
+							n.ct_noticia,
+							n.link_noticia
 						FROM
 							noticia n
 						JOIN
@@ -357,8 +430,10 @@ function monta($res){
 			'subtitulo' =>$valor->subtitulo,
 			'texto' =>$valor->texto,
 			'dt_publicacao' =>date_format(date_create($valor->dt_publicacao),"d/m/Y H:i"),
+			'dt_ativacao' =>date_format(date_create($valor->dt_ativacao),"d/m/Y H:i"),
 			'img' => "nimg/".$valor->img,
-			'ct_noticia' => getCtNoticia($valor->ct_noticia)
+			'ct_noticia' => getCtNoticia($valor->ct_noticia),
+			'link_noticia'=> $valor->link_noticia
 		));
 	}
 
@@ -485,20 +560,57 @@ function deletaFoto($id,$dbh){
 }
 
 function enviaContato($dados){
-	$retorno = false;
+	// Inicia a classe PHPMailer
+	$mail = new PHPMailer(true);
+	 
+	// Define os dados do servidor e tipo de conexão
+	// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	$mail->IsSMTP(); // Define que a mensagem será SMTP
+	 
+	try {
+ 		$mail->Host = 'smtp-mail.outlook.com'; // Endereço do servidor SMTP (Autenticação, utilize o host smtp.seudomínio.com.br)
+		$mail->SMTPDebug = false;       // Debugar: 1 = erros e mensagens, 2 = mensagens apenas
+		$mail->SMTPAuth = true;     // Autenticação ativada
+		$mail->SMTPSecure = 'tls';
+		$mail->Port = 587;
+	 	$mail->Username = 'adrianocruzweb@hotmail.com'; // Usuário do servidor SMTP (endereço de email)
+     	$mail->Password = 'minhalinda'; // Senha do servidor SMTP (senha do email usado)
+	 
+	     //Define o remetente
+	     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=    
+	     $mail->SetFrom('adrianocruzweb@hotmail.com', 'Adriano Cruz'); //Seu e-mail
+	     $mail->AddReplyTo('seu@e-mail.com.br', 'Nome'); //Seu e-mail
+	     $mail->Subject = 'Comercial Contato Pelo Site';//Assunto do e-mail
 
-	// the message
-	$msg = "Nome: ".$dados->nome." \n";
-	$msg .= "Email: ".$dados->email." \n";
-	$msg .= "Telefone: ".$dados->telefone." \n";
-	$msg .= "MENSAGEM: ".$dados->mensagem." \n";
+		// the message
+		$msg = "Nome: ".$dados->nome." \n";
+		$msg .= "Email: ".$dados->email." \n";
+		$msg .= "MENSAGEM: ".$dados->mensagem." \n";
+	 
+	 
+	     //Define os destinatário(s)
+	     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	     $mail->AddAddress('comercial@tvonmidia.com.br', 'Comercial');
+	 
+	     //Campos abaixo são opcionais 
+	     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	     //$mail->AddCC('destinarario@dominio.com.br', 'Destinatario'); // Copia
+	     //$mail->AddBCC('destinatario_oculto@dominio.com.br', 'Destinatario2`'); // Cópia Oculta
+	     //$mail->AddAttachment('images/phpmailer.gif');      // Adicionar um anexo
+	 
+	 
+	     //Define o corpo do email
+	     $mail->MsgHTML($msg); 
+	 
+	     ////Caso queira colocar o conteudo de um arquivo utilize o método abaixo ao invés da mensagem no corpo do e-mail.
+	     //$mail->MsgHTML(file_get_contents('arquivo.html'));
+	 
+	     $mail->Send();
+	     return "Mensagem enviada com sucesso</p>\n";
+	 
+	    //caso apresente algum erro é apresentado abaixo com essa exceção.
+    }catch (phpmailerException $e) {
+      	return $e->errorMessage(); //Mensagem de erro costumizada do PHPMailer
+	}
 
-	// use wordwrap() if lines are longer than 70 characters
-	$msg = wordwrap($msg,200);
-
-	// send email
-	$retorno = mail("adrianocruzweb@hotmail.com","CONTATO SITE TVON",$msg);
-
-
-	return $retorno;
 }

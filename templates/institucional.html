@@ -1,35 +1,19 @@
-<section id="featured" class="bg">
-	<!-- Slider -->
-		<div id="main-slider" class="main-slider flexslider">
-			<ul class="slides">
-				<li><img src="img/slides/flexslider/slider12.jpg" alt="" /></li>
-				<li><img src="img/slides/flexslider/slider12.jpg" alt="" /></li>
-				<li><img src="img/slides/flexslider/slider12.jpg" alt="" /></li>
-			</ul>
-		</div>
-	<!-- end slider -->
-</section>
-		
 <section>
-	<div id="menucustom" class="navbar navbar-default navbar-static-top menunav">
-		<div class="collapse navbar-collapse">
-			<ul id="itemcustom" class="nav navbar-nav">
-				<li><a href="atvon.html">A TV ON</a></li>
-				<li><a href="intinerarios.html">ITINERÁRIOS</a></li>
-				<li><a href="anunciantes.html">ANUNCIANTES</a></li>
-				<!--li><a href="#">CONTATO</a></li-->
-				<li><a href="diferenciais.html">DIFERENCIAIS</a></li>
-			</ul>
-		</div><!-- end collapse -->
+	<div 
+		class="container" 
+		style="background-color: #f8f8f4; width: 100%; padding-top: -10px;"
+		ng-include="'templates/banner.html'">		
 	</div>
-</section>
-
-<section>
+	<div 
+		class="container"
+		style="background-color: #f8f8f4; width: 100%; padding-top: -10px;"
+		ng-include="'templates/menu-interno.html'">		
+	</div>
 	<div class="container" style="background-color: #f8f8f4; width: 100%; padding-top: -10px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 contsobre">
-					<img src="img/sobre.jpg">
+					<img src="img/sobre.jpg" class="img-responsive center-block">
 				</div>
 			</div>
 		</div>
@@ -76,7 +60,7 @@
 			<div style="height: 20px; padding-bottom:20px;"></div>
 		</div>
 	</div>
-	<div class="container" style="background-color: #f8f8f4; width: 100%; padding-top: 20px; height: 400px;">
+	<div class="container" style="background-color: #f8f8f4; width: 100%; padding-top: 20px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6"><img src="img/veicular.png"></div>
@@ -89,7 +73,7 @@
 						<li>Grande absorção da mensagem</li>
 						<li>Custo reduzido em relação as mídias equivalentes</li>
 					</ul>
-					<img src="img/linhas.png">
+					<a href="#itinerarios"><img src="img/linhas.png"></a>
 				</div>
 			</div>
 		</div>

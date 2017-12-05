@@ -4,7 +4,8 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: charset=utf-8');
 
 ini_set('display_errors', 1);
-date_default_timezone_set('UTC');
+date_default_timezone_set('America/Campo_Grande');
+setlocale(LC_ALL, 'pt_BR');
 
 if($_SERVER['HTTP_HOST'] == 'localhost:81'){
 	$banco  	= 'tvondb';
